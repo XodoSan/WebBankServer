@@ -48,5 +48,31 @@ namespace WebBank.Repositories
             _context.BankAccounts.Add(result);
             _context.SaveChanges();
         }
+
+        public void DeleteBankAccount(Guid id)
+        {
+            var currentBankAccount = _context.BankAccounts.FirstOrDefault(x => x.Id == id);
+            if (currentBankAccount == null)
+            {
+                throw new Exception($"Account with id: {id} does not exist");
+            }
+
+            _context.BankAccounts.Remove(currentBankAccount);
+            _context.SaveChanges();
+        }
+
+        public void UpdateAccount(BankAccountDto accountDto)
+        {
+            var currentBankAccount = _context.BankAccounts.FirstOrDefault(x => x.Id == accountDto.Id);
+            if (currentBankAccount == null)
+            {
+                throw new Exception($"Account with id: {accountDto.Id} does not exist");
+            }
+
+            currentBankAccount.BankId = accountDto.BankId;
+            currentBankAccount.ContributorId = accountDto.ContributorId;
+            currentBankAccount.RateId = accountDto.RateId;
+            _context.SaveChanges();
+        }
     }
 }
