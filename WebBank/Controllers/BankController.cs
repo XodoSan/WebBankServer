@@ -99,5 +99,11 @@ namespace WebBank.Controllers
         {
             _bankAccountRepository.UpdateAccount(account);
         }
+
+        [HttpGet("BankAccount/Filter")]
+        public List<BankAccount> GetFilteredBankAccounts()
+        {
+            return _bankAccountRepository.GetFilteredBankAccounts();
+        }
     }
 }

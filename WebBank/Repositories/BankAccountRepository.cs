@@ -23,6 +23,16 @@ namespace WebBank.Repositories
                 .ToList();
         }
 
+        public List<BankAccount> GetFilteredBankAccounts()
+        {
+            return _context.BankAccounts
+                .Include(x => x.Bank)
+                .Include(x => x.Rate)
+                .Include(x => x.Contributor)
+                .OrderBy(x => x.Contributor.FIO)
+                .ToList();
+        }
+
         public void AddBankAccount(BankAccountDto account)
         {
             var currentEntity = _context.BankAccounts.FirstOrDefault(x => x.BankId == account.BankId &&
